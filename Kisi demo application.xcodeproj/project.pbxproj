@@ -14,6 +14,7 @@
 		35F97DCE215B8DB500EA608D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35F97DCC215B8DB500EA608D /* LaunchScreen.storyboard */; };
 		35F97DD9215B8DB600EA608D /* Kisi_demo_applicationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F97DD8215B8DB600EA608D /* Kisi_demo_applicationTests.swift */; };
 		35F97DE4215B8DB600EA608D /* Kisi_demo_applicationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F97DE3215B8DB600EA608D /* Kisi_demo_applicationUITests.swift */; };
+		35F97DF2215B8EA800EA608D /* OpenDoorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F97DF1215B8EA800EA608D /* OpenDoorViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		35F97DDF215B8DB600EA608D /* Kisi demo applicationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Kisi demo applicationUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		35F97DE3215B8DB600EA608D /* Kisi_demo_applicationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kisi_demo_applicationUITests.swift; sourceTree = "<group>"; };
 		35F97DE5215B8DB600EA608D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		35F97DF1215B8EA800EA608D /* OpenDoorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDoorViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				35F97DCA215B8DB500EA608D /* Assets.xcassets */,
 				35F97DCC215B8DB500EA608D /* LaunchScreen.storyboard */,
 				35F97DCF215B8DB500EA608D /* Info.plist */,
+				35F97DF1215B8EA800EA608D /* OpenDoorViewController.swift */,
 			);
 			path = "Kisi demo application";
 			sourceTree = "<group>";
@@ -256,6 +259,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35F97DF2215B8EA800EA608D /* OpenDoorViewController.swift in Sources */,
 				35F97DC6215B8DB500EA608D /* ViewController.swift in Sources */,
 				35F97DC4215B8DB500EA608D /* AppDelegate.swift in Sources */,
 			);
