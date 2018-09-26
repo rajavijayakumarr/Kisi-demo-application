@@ -78,11 +78,26 @@
                                 <rect key="frame" x="163" y="151" width="88" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="OPEN DOOR"/>
+                                <connections>
+                                    <action selector="openDoorButtonPressed:" destination="hF5-4H-Q61" eventType="touchUpInside" id="3Eq-1O-2Hh"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OW9-3A-J0b">
+                                <rect key="frame" x="119" y="250" width="177" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="GET LOCK INFORMATION"/>
+                                <connections>
+                                    <action selector="getLockInformatoinButtonPressed:" destination="hF5-4H-Q61" eventType="touchUpInside" id="RV3-R1-W6w"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="rkx-dM-3we"/>
                     </view>
+                    <connections>
+                        <outlet property="getLockInformtionButton" destination="OW9-3A-J0b" id="w5N-ph-CAJ"/>
+                        <outlet property="openDoorButton" destination="Sw8-wo-8Ho" id="E7b-3z-A74"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fWX-J0-VfB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

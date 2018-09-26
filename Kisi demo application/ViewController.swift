@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import CoreLocation
 
 let LOGIN_ENDPOINT = "https://api.getkisi.com/users/sign_in"
 
@@ -19,9 +20,15 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+//        self.requestForLocation()
         emailTextField.delegate = self
         passwordTextField.delegate = self
+    }
+    
+    func requestForLocation() {
+        let locationManager = CLLocationManager()
+        locationManager.requestAlwaysAuthorization()
+        locationManager.requestWhenInUseAuthorization()
     }
 
     @IBAction func loginButtonAction(_ sender: Any) {
@@ -45,8 +52,9 @@ class ViewController: UIViewController {
                 
                 return
             }
-            print(responseData.data as Any)
+            
             let json = JSON(responseData.data!)
+            print(json as Any)
             let secret = json["secret"].stringValue
             let authenticationToken = json["authentication_token"].stringValue
             
