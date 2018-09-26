@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 let LOGIN_ENDPOINT = "https://api.getkisi.com/users/sign_in"
 
@@ -32,18 +34,31 @@ class ViewController: UIViewController {
         
         request.httpBody = "{\"user\": {\"email\": \"\(self.emailTextField.text ?? "no email")\",\"password\": \"\(self.passwordTextField.text ?? "no password")\"}}".data(using: .utf8)
         
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let response = response, let data = data {
-                print(response)
-                print(String(data: data, encoding: .utf8) as Any)
-            } else {
-                print(error as Any)
+        Alamofire.request(request).responseJSON { (responseData) in
+            
+            guard responseData.error == nil else {
+                print("Login failed with errors. response code: ", responseData.response?.statusCode as Any)
+                print("error: ", responseData.error as Any)
+                let alert = UIAlertController(title: "error", message: "response returned a \(String(describing: responseData.response?.statusCode)) error", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
+                self.present(alert, animated: true)
+                
+                return
             }
+            print(responseData.data as Any)
+            let json = JSON(responseData.data!)
+            let secret = json["secret"].stringValue
+            let authenticationToken = json["authentication_token"].stringValue
+            
+            let viewController = self.storyboard?.instantiateViewController(withIdentifier: "opendoorviewcontroller") as! OpenDoorViewController
+            
+            viewController.secret = secret
+            viewController.authenticationToken = authenticationToken
+            
+            self.present(viewController, animated: true)
+            
         }
-        
-        task.resume()
     }
-    
 }
 
 extension ViewController: UITextFieldDelegate {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04D42B31CF8C6E46C869D063 /* Pods_Kisi_demo_applicationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86C7AF362793B5D5B4226DAD /* Pods_Kisi_demo_applicationTests.framework */; };
 		35F97DC4215B8DB500EA608D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F97DC3215B8DB500EA608D /* AppDelegate.swift */; };
 		35F97DC6215B8DB500EA608D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F97DC5215B8DB500EA608D /* ViewController.swift */; };
 		35F97DC9215B8DB500EA608D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35F97DC7215B8DB500EA608D /* Main.storyboard */; };
@@ -15,6 +16,8 @@
 		35F97DD9215B8DB600EA608D /* Kisi_demo_applicationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F97DD8215B8DB600EA608D /* Kisi_demo_applicationTests.swift */; };
 		35F97DE4215B8DB600EA608D /* Kisi_demo_applicationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F97DE3215B8DB600EA608D /* Kisi_demo_applicationUITests.swift */; };
 		35F97DF2215B8EA800EA608D /* OpenDoorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F97DF1215B8EA800EA608D /* OpenDoorViewController.swift */; };
+		5E3D5FF2EF7CE50C24D9EC99 /* Pods_Kisi_demo_applicationUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA9DB911597F798BB6B7B10B /* Pods_Kisi_demo_applicationUITests.framework */; };
+		73FDC22A3531EED67FE2DC09 /* Pods_Kisi_demo_application.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91AC5EB69C1EA130C7E37016 /* Pods_Kisi_demo_application.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		162D069DFAD8C9B8D14211C2 /* Pods-Kisi demo applicationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kisi demo applicationTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Kisi demo applicationTests/Pods-Kisi demo applicationTests.debug.xcconfig"; sourceTree = "<group>"; };
 		35F97DC0215B8DB500EA608D /* Kisi demo application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Kisi demo application.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		35F97DC3215B8DB500EA608D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		35F97DC5215B8DB500EA608D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -49,6 +53,14 @@
 		35F97DE3215B8DB600EA608D /* Kisi_demo_applicationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kisi_demo_applicationUITests.swift; sourceTree = "<group>"; };
 		35F97DE5215B8DB600EA608D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		35F97DF1215B8EA800EA608D /* OpenDoorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDoorViewController.swift; sourceTree = "<group>"; };
+		550222DB5AC65DE37DE43359 /* Pods-Kisi demo applicationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kisi demo applicationTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Kisi demo applicationTests/Pods-Kisi demo applicationTests.release.xcconfig"; sourceTree = "<group>"; };
+		65BC017F08D82DB02693C3C8 /* Pods-Kisi demo applicationUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kisi demo applicationUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Kisi demo applicationUITests/Pods-Kisi demo applicationUITests.release.xcconfig"; sourceTree = "<group>"; };
+		86C7AF362793B5D5B4226DAD /* Pods_Kisi_demo_applicationTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Kisi_demo_applicationTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		91AC5EB69C1EA130C7E37016 /* Pods_Kisi_demo_application.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Kisi_demo_application.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA9DB911597F798BB6B7B10B /* Pods_Kisi_demo_applicationUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Kisi_demo_applicationUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC3626B6362E390E34D7B0CB /* Pods-Kisi demo applicationUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kisi demo applicationUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Kisi demo applicationUITests/Pods-Kisi demo applicationUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		BEAE26B5AE31BE4E58393B54 /* Pods-Kisi demo application.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kisi demo application.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Kisi demo application/Pods-Kisi demo application.debug.xcconfig"; sourceTree = "<group>"; };
+		C8373F320094B76F0A74B124 /* Pods-Kisi demo application.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kisi demo application.release.xcconfig"; path = "Pods/Target Support Files/Pods-Kisi demo application/Pods-Kisi demo application.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73FDC22A3531EED67FE2DC09 /* Pods_Kisi_demo_application.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04D42B31CF8C6E46C869D063 /* Pods_Kisi_demo_applicationTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E3D5FF2EF7CE50C24D9EC99 /* Pods_Kisi_demo_applicationUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +98,8 @@
 				35F97DD7215B8DB600EA608D /* Kisi demo applicationTests */,
 				35F97DE2215B8DB600EA608D /* Kisi demo applicationUITests */,
 				35F97DC1215B8DB500EA608D /* Products */,
+				3CDAA2C1EBD5847A5D6AC803 /* Pods */,
+				5873CD43F5D532BB34AB5D97 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -128,6 +145,29 @@
 			path = "Kisi demo applicationUITests";
 			sourceTree = "<group>";
 		};
+		3CDAA2C1EBD5847A5D6AC803 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BEAE26B5AE31BE4E58393B54 /* Pods-Kisi demo application.debug.xcconfig */,
+				C8373F320094B76F0A74B124 /* Pods-Kisi demo application.release.xcconfig */,
+				162D069DFAD8C9B8D14211C2 /* Pods-Kisi demo applicationTests.debug.xcconfig */,
+				550222DB5AC65DE37DE43359 /* Pods-Kisi demo applicationTests.release.xcconfig */,
+				BC3626B6362E390E34D7B0CB /* Pods-Kisi demo applicationUITests.debug.xcconfig */,
+				65BC017F08D82DB02693C3C8 /* Pods-Kisi demo applicationUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		5873CD43F5D532BB34AB5D97 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				91AC5EB69C1EA130C7E37016 /* Pods_Kisi_demo_application.framework */,
+				86C7AF362793B5D5B4226DAD /* Pods_Kisi_demo_applicationTests.framework */,
+				BA9DB911597F798BB6B7B10B /* Pods_Kisi_demo_applicationUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,9 +175,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 35F97DE8215B8DB600EA608D /* Build configuration list for PBXNativeTarget "Kisi demo application" */;
 			buildPhases = (
+				16207B01B512FF02D38BA918 /* [CP] Check Pods Manifest.lock */,
 				35F97DBC215B8DB500EA608D /* Sources */,
 				35F97DBD215B8DB500EA608D /* Frameworks */,
 				35F97DBE215B8DB500EA608D /* Resources */,
+				A745CA662B4EF1B0C3FA7377 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -152,6 +194,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 35F97DEB215B8DB600EA608D /* Build configuration list for PBXNativeTarget "Kisi demo applicationTests" */;
 			buildPhases = (
+				49EC518F5FBFAE2466545257 /* [CP] Check Pods Manifest.lock */,
 				35F97DD0215B8DB600EA608D /* Sources */,
 				35F97DD1215B8DB600EA608D /* Frameworks */,
 				35F97DD2215B8DB600EA608D /* Resources */,
@@ -170,6 +213,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 35F97DEE215B8DB600EA608D /* Build configuration list for PBXNativeTarget "Kisi demo applicationUITests" */;
 			buildPhases = (
+				8016D400DAB66453C0DE0989 /* [CP] Check Pods Manifest.lock */,
 				35F97DDB215B8DB600EA608D /* Sources */,
 				35F97DDC215B8DB600EA608D /* Frameworks */,
 				35F97DDD215B8DB600EA608D /* Resources */,
@@ -253,6 +297,83 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		16207B01B512FF02D38BA918 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Kisi demo application-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		49EC518F5FBFAE2466545257 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Kisi demo applicationTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8016D400DAB66453C0DE0989 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Kisi demo applicationUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A745CA662B4EF1B0C3FA7377 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Kisi demo application/Pods-Kisi demo application-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Kisi demo application/Pods-Kisi demo application-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		35F97DBC215B8DB500EA608D /* Sources */ = {
@@ -434,6 +555,7 @@
 		};
 		35F97DE9215B8DB600EA608D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BEAE26B5AE31BE4E58393B54 /* Pods-Kisi demo application.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -452,6 +574,7 @@
 		};
 		35F97DEA215B8DB600EA608D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C8373F320094B76F0A74B124 /* Pods-Kisi demo application.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -470,6 +593,7 @@
 		};
 		35F97DEC215B8DB600EA608D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 162D069DFAD8C9B8D14211C2 /* Pods-Kisi demo applicationTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -491,6 +615,7 @@
 		};
 		35F97DED215B8DB600EA608D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 550222DB5AC65DE37DE43359 /* Pods-Kisi demo applicationTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -512,6 +637,7 @@
 		};
 		35F97DEF215B8DB600EA608D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BC3626B6362E390E34D7B0CB /* Pods-Kisi demo applicationUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -532,6 +658,7 @@
 		};
 		35F97DF0215B8DB600EA608D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 65BC017F08D82DB02693C3C8 /* Pods-Kisi demo applicationUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
