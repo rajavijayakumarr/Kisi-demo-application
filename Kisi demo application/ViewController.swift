@@ -12,8 +12,8 @@ import SwiftyJSON
 import CoreLocation
 import MBProgressHUD
 
-let LOGIN_ENDPOINT = "https://api.getkisi.com/users/sign_in"
 let locationManager = CLLocationManager()
+let kisiApiService = KisiApiService()
 
 class ViewController: UIViewController {
 
@@ -36,38 +36,28 @@ class ViewController: UIViewController {
         
         MBProgressHUD.showAdded(to: self.view, animated: true)
         
-        let url = URL(string: LOGIN_ENDPOINT)!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
-        request.httpBody = "{\"user\": {\"email\": \"\(self.emailTextField.text ?? "no email")\",\"password\": \"\(self.passwordTextField.text ?? "no password")\"}}".data(using: .utf8)
-        
-        Alamofire.request(request).responseJSON { (responseData) in
+        kisiApiService.loginUser(email: self.emailTextField.text ?? "", password: self.passwordTextField.text ?? "") { json, httpResponse, error in
             
-            guard responseData.error == nil else {
+            guard error == nil else {
                 MBProgressHUD.hide(for: self.view, animated: true)
-                print("Login failed with errors. response code: ", responseData.response?.statusCode as Any)
-                print("error: ", responseData.error as Any)
-                let alert = UIAlertController(title: "error", message: "response returned a \(String(describing: responseData.response?.statusCode)) error", preferredStyle: .alert)
+                print("Login failed with errors. response code: ", httpResponse?.statusCode as Any)
+                print("error: ", error as Any)
+                let alert = UIAlertController(title: "error", message: "response returned a \(String(describing: httpResponse?.statusCode)) error", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
                 self.present(alert, animated: true)
-                
                 return
             }
-            
-            let json = JSON(responseData.data!)
+            guard let json = json else { return }
             print(json as Any)
             let secret = json["secret"].stringValue
             let authenticationToken = json["authentication_token"].stringValue
+            UserDefaults.standard.set(secret, forKey: SECRET)
+            UserDefaults.standard.set(authenticationToken, forKey: AUTHORIZATION_TOKEN)
             
             let viewController = self.storyboard?.instantiateViewController(withIdentifier: "opendoorviewcontroller") as! OpenDoorViewController
-            
-            viewController.secret = secret
-            viewController.authenticationToken = authenticationToken
             MBProgressHUD.hide(for: self.view, animated: true)
             self.present(viewController, animated: true)
+            
         }
     }
 }

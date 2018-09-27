@@ -9,6 +9,10 @@
 import Foundation
 import SystemConfiguration.CaptiveNetwork
 
+// MARK:- Constants
+let AUTHORIZATION_TOKEN = "AUTHORIZATION_TOKEN"
+let SECRET = "SECRET"
+
 // MARK:-  Return IP address of WiFi interface (en0) as a String, or `nil`
 func getWiFiAddress() -> String? {
     var address : String?

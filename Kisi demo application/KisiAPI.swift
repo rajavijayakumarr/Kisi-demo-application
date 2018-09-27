@@ -48,13 +48,13 @@ extension ApiUrlRequest {
     fileprivate func addDefaultHeaders(request: URLRequest) -> URLRequest {
         var req = request
         req.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        req.setValue("Accept", forHTTPHeaderField: "application/json")
+        req.setValue("application/json", forHTTPHeaderField: "Accept")
         return req
     }
     
     func addAuthorization(request: URLRequest, isAuthorizationToken: Bool) -> URLRequest {
         var req = request
-        req.setValue("KISI_TOKEN \(isAuthorizationToken ? ("authorization_token"): ("secret"))", forHTTPHeaderField: "Authorization")
+        req.setValue("KISI-LOGIN \(isAuthorizationToken ? (UserDefaults.standard.string(forKey: AUTHORIZATION_TOKEN) ?? ""): (UserDefaults.standard.string(forKey: SECRET) ?? ""))", forHTTPHeaderField: "Authorization")
         return req
     }
     
@@ -84,23 +84,22 @@ enum KisiURLRequest: ApiUrlRequest {
             
             switch self {
                 
-            case .signUpUser(let name, let email, let password, let terms_and_condition):
+            case .signUpUser:
                 
                 return(.post, nil, nil, "/users/sign_up", JSONEncoding.default)
                 
-            case .signIn(let email, let password):
+            case .signIn:
                 
-                let params: [String: Any] = ["user": ["email": email, "password": password]]
+                return (.post, nil, nil, "/users/sign_in", JSONEncoding.default)
                 
-                return (.post, nil, params, "/users/sign_in", JSONEncoding.default)
-                
-            case .signOut():
+            case .signOut:
                 
                 return (.post, nil, nil, "/users/sign_out", JSONEncoding.default)
                 
             case .getLockInformation(let name, let online, let assigned, let gateway_id, let place_id):
                 
-                return (.get, nil, nil, "/locks?name=\(name ?? "")&online=\(online ?? "")&assigned=\(assigned ?? "")&gateway_id=\(gateway_id ?? "")&place_id=\(place_id ?? "")", JSONEncoding.default)
+                //return (.get, nil, nil, "/locks?name=\(name ?? "")&online=\(online ?? "")&assigned=\(assigned ?? "")&gateway_id=\(gateway_id ?? "")&place_id=\(place_id ?? "")", JSONEncoding.default)
+                return (.get, nil, nil, "/locks", JSONEncoding.default)
                 
             case .unlock(_, _, _, _, _, _, _, let lockId):
                 
@@ -127,14 +126,7 @@ enum KisiURLRequest: ApiUrlRequest {
                 """.data(using: .utf8)
                 
              case .signIn(let email, let password):
-                return """
-                {
-                "user": {
-                "email": "\(email)",
-                "password": "\(password)"
-                }
-                }
-                """.data(using: .utf8)
+                return "{\n  \"user\": {\n    \"email\": \"\(email)\",\n    \"password\": \"\(password)\"\n  }\n}".data(using: .utf8)
                 
             default:
                 return nil
@@ -147,6 +139,7 @@ enum KisiURLRequest: ApiUrlRequest {
         
         if rawBody != nil {
             request.httpMethod = "POST"
+            request.httpBody = rawBody
         }
         
         var finalRequest: URLRequest = addDefaultHeaders(request: request)
@@ -173,61 +166,55 @@ enum KisiURLRequest: ApiUrlRequest {
 
         return finalRequest
     }
-    
-    class ApiService {
-        
-        typealias ApiResponseHandler = ( _ responseJson : JSON?, _ response : HTTPURLResponse?, _ error : Error?) -> Void
-        
-    }
-    
-    class KisiApiService: ApiService {
-        
-        func makeApiRequest(urlRequest: URLRequestConvertible, handler: ApiResponseHandler?) -> Request {
-            
-            return Alamofire.request(urlRequest).responseJSON { dataResponse in
-                
-                if let completion = handler {
-                    completion(JSON(dataResponse.data ?? Data()), dataResponse.response, dataResponse.error)
-                }
-            }
-        }
-        
-        func loginUser(email: String, password: String, completion: ApiResponseHandler?) {
-            
-            _ = makeApiRequest(urlRequest: KisiURLRequest.signIn(email: email, password: password)) { (responseJSON, response, error) in
-                
-                guard error == nil else {
-                    completion?(nil, nil, error)
-                    return
-                }
-                completion?(responseJSON, response, nil)
-            }
-        }
-        
-        func retriveLockInformation(name: String?, online: String?, assigned: String?, gateway_id: String?, place_id: String?, completion: ApiResponseHandler?) {
-            
-            _ = makeApiRequest(urlRequest: KisiURLRequest.getLockInformation(name: name, online: online, assigned: assigned, gateway_id: gateway_id, place_id: place_id)) { (responseJSON, response, error) in
-                
-                guard error == nil else {
-                    completion?(nil, nil, error)
-                    return
-                }
-                completion?(responseJSON, response, nil)
-            }
-        }
-        
-        func unlockDoor(app: App?, becons: Becons?, device: Device?, location: Location?, os: OS?, services: Services?, wifi: Wifi?, lockId: String, completion: ApiResponseHandler?) {
-            
-            _ = makeApiRequest(urlRequest: KisiURLRequest.unlock(app: app, becons: becons, device: device, location: location, os: os, services: services, wifi: wifi, lockId: lockId)) { (responseJSON, response, error) in
-                
-                guard error == nil else {
-                    completion?(nil, nil, error)
-                    return
-                }
-                completion?(responseJSON, response, nil)
-            }
-        }
-    }
-    
 }
 
+class KisiApiService {
+    
+    typealias ApiResponseHandler = ( _ responseJson : JSON?, _ response : HTTPURLResponse?, _ error : Error?) -> Void
+
+    func makeApiRequest(urlRequest: URLRequestConvertible, handler: ApiResponseHandler?) -> Request {
+        
+        return Alamofire.request(urlRequest).responseJSON { dataResponse in
+            
+            if let completion = handler {
+                completion(JSON(dataResponse.data ?? Data()), dataResponse.response, dataResponse.error)
+            }
+        }
+    }
+    
+    func loginUser(email: String, password: String, completion: ApiResponseHandler?) {
+        
+        _ = makeApiRequest(urlRequest: KisiURLRequest.signIn(email: email, password: password)) { (responseJSON, response, error) in
+            
+            guard error == nil else {
+                completion?(nil, nil, error)
+                return
+            }
+            completion?(responseJSON, response, nil)
+        }
+    }
+    
+    func retriveLockInformation(name: String? = nil, online: String? = nil, assigned: String? = nil, gateway_id: String? = nil, place_id: String? = nil, completion: ApiResponseHandler?) {
+        
+        _ = makeApiRequest(urlRequest: KisiURLRequest.getLockInformation(name: name, online: online, assigned: assigned, gateway_id: gateway_id, place_id: place_id)) { (responseJSON, response, error) in
+            
+            guard error == nil else {
+                completion?(nil, nil, error)
+                return
+            }
+            completion?(responseJSON, response, nil)
+        }
+    }
+    
+    func unlockDoor(app: App?, becons: Becons?, device: Device?, location: Location?, os: OS?, services: Services?, wifi: Wifi?, lockId: String, completion: ApiResponseHandler?) {
+        
+        _ = makeApiRequest(urlRequest: KisiURLRequest.unlock(app: app, becons: becons, device: device, location: location, os: os, services: services, wifi: wifi, lockId: lockId)) { (responseJSON, response, error) in
+            
+            guard error == nil else {
+                completion?(nil, nil, error)
+                return
+            }
+            completion?(responseJSON, response, nil)
+        }
+    }
+}

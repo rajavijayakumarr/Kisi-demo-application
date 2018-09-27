@@ -148,9 +148,6 @@ class OpenDoorViewController: UIViewController {
     // MARK:- Properties
     var currentLocation: CLLocation?
     
-    var secret: String?
-    var authenticationToken: String?
-    
     var becons: Becons? = nil
     var device: Device? = nil
     var location: Location? = nil
@@ -158,6 +155,7 @@ class OpenDoorViewController: UIViewController {
     var services: Services? = nil
     var wifi: Wifi? = nil
     var app: App? = nil
+    var lockId = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -167,29 +165,21 @@ class OpenDoorViewController: UIViewController {
     }
     @IBAction func getLockInformatoinButtonPressed(_ sender: UIButton) {
         
-        let url = URL(string: LOCK_INFORMATION_ENDPOINT)!
-        var request = URLRequest(url: url)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("KISI-LOGIN \(self.authenticationToken ?? "no token")", forHTTPHeaderField: "Authorization")
-        
-        Alamofire.request(request).responseJSON { dataResponse in
-            
-            guard dataResponse.error == nil else {
-                let alert = UIAlertController(title: "error", message: "request returned with exit code \(dataResponse.response?.statusCode ?? 90909)", preferredStyle: .alert)
+        kisiApiService.retriveLockInformation { json, httpResponse, error in
+            guard error == nil else {
+                let alert = UIAlertController(title: "error", message: "request returned with exit code \(httpResponse?.statusCode ?? 90909)", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
                 self.present(alert, animated: true)
                 return
             }
             
-            let json = JSON(dataResponse.data!)
+            guard let json = json else { return }
+            
             print(json as Any)
             self.setAllNecessaryParameters(from: json.arrayValue[0])
             self.openDoorButton.isEnabled = true
-            
-        }
-        
 
+        }
     }
     @IBAction func openDoorButtonPressed(_ sender: UIButton) {
         self.unlock()
@@ -216,36 +206,25 @@ class OpenDoorViewController: UIViewController {
     
     func unlock() {
         
-        let url = URL(string: "https://api.getkisi.com/locks/8322/unlock")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("KISI-LOGIN \(self.authenticationToken ?? "no token")", forHTTPHeaderField: "Authorization")
-        
-        request.httpBody = "{\n  \"context\": {\n    \"app\": \(self.app?.toJSONstring() ?? "no app"),\n    \"beacons\": [\(self.becons?.toJSONstring() ?? "no becons")    ],\n    \"device\": \(self.device?.toJSONstring() ?? "no device"),\n    \"location\": \(self.location?.toJSONstring() ?? "no location"),\n    \"os\": \(self.os?.toJSONstring() ?? "no os"),\n    \"services\": [\n      \(self.services?.toJSONstring() ?? "no services")    ],\n    \"wifi\": \(self.wifi?.toJSONstring() ?? "no wifi")  }\n}".data(using: .utf8)
-        print(String(data: request.httpBody!, encoding: .utf8) as Any)
-        
-        Alamofire.request(request).responseJSON { dataResponse in
-            guard dataResponse.error == nil else {
-                let alert = UIAlertController(title: "error", message: "request returned with exit code \(dataResponse.response?.statusCode ?? 90909)", preferredStyle: .alert)
+        kisiApiService.unlockDoor(app: self.app, becons: self.becons, device: self.device, location: self.location, os: self.os, services: self.services, wifi: self.wifi, lockId: self.lockId) { json, httpResponse, error in
+            
+            guard error == nil else {
+                let alert = UIAlertController(title: "error", message: "request returned with exit code \(httpResponse?.statusCode ?? 90909)", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
                 self.present(alert, animated: true)
                 return
             }
             
-            let json = JSON(dataResponse.data ?? Data())
-            print(dataResponse.response?.statusCode as Any)
-            print(dataResponse.response?.allHeaderFields as Any)
+            guard let json = json else { return }
             let alert = UIAlertController(title: json.description, message: nil, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
-            
         }
     }
     
     func setAllNecessaryParameters(from json: JSON) {
         
+        self.lockId = String(json["id"].intValue)
         self.setBecons(from: json)
         self.setDevice()
         self.setOs()
