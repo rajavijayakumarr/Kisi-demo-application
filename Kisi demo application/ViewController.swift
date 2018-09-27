@@ -12,6 +12,7 @@ import SwiftyJSON
 import CoreLocation
 
 let LOGIN_ENDPOINT = "https://api.getkisi.com/users/sign_in"
+let locationManager = CLLocationManager()
 
 class ViewController: UIViewController {
 
@@ -20,15 +21,14 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.requestForLocation()
+        self.requestForLocation()
         emailTextField.delegate = self
         passwordTextField.delegate = self
     }
     
     func requestForLocation() {
-        let locationManager = CLLocationManager()
-        locationManager.requestAlwaysAuthorization()
         locationManager.requestWhenInUseAuthorization()
+        locationManager.requestAlwaysAuthorization()
     }
 
     @IBAction func loginButtonAction(_ sender: Any) {

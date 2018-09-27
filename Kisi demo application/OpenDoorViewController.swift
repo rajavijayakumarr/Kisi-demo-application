@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import CoreLocation
 
 //can add parameters: name=name&online=true&assigned=true&gateway_id=0&place_id=5850
 let LOCK_INFORMATION_ENDPOINT = "https://api.getkisi.com/locks"
@@ -140,8 +141,12 @@ struct App: Codable {
 
 class OpenDoorViewController: UIViewController {
     
+    // MARK:- Outlet Properties
     @IBOutlet weak var openDoorButton: UIButton!
     @IBOutlet weak var getLockInformtionButton: UIButton!
+    
+    // MARK:- Properties
+    var currentLocation: CLLocation?
     
     var secret: String?
     var authenticationToken: String?
@@ -156,6 +161,7 @@ class OpenDoorViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.assignLocation()
         self.openDoorButton.isEnabled = false
         
     }
@@ -191,6 +197,23 @@ class OpenDoorViewController: UIViewController {
         
     }
     
+    // MARK:- Helper functions
+    func assignLocation() {
+        
+        guard CLLocationManager.authorizationStatus() == .authorizedAlways || CLLocationManager.authorizationStatus() == .authorizedWhenInUse else { return }
+        
+        self.currentLocation = locationManager.location
+        
+        guard let currentLocation = self.currentLocation else {
+            let alert = UIAlertController(title: "Location cannot be determined", message: "Please try again after some times", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
+            self.present(alert, animated: true)
+            self.location = Location(longitude: 12, latitude: 80)
+            return
+        }
+        
+        self.setLocation(currentLocation: currentLocation)
+    }
     func openDoorFunction() {
         
         let url = URL(string: "https://api.getkisi.com/locks")!
@@ -226,7 +249,7 @@ class OpenDoorViewController: UIViewController {
         request.addValue("KISI-LOGIN \(self.authenticationToken ?? "no token")", forHTTPHeaderField: "Authorization")
         
         request.httpBody = "{\n  \"context\": {\n    \"app\": \(self.app?.toJSONstring() ?? "no app"),\n    \"beacons\": [\(self.becons?.toJSONstring() ?? "no becons")    ],\n    \"device\": \(self.device?.toJSONstring() ?? "no device"),\n    \"location\": \(self.location?.toJSONstring() ?? "no location"),\n    \"os\": \(self.os?.toJSONstring() ?? "no os"),\n    \"services\": [\n      \(self.services?.toJSONstring() ?? "no services")    ],\n    \"wifi\": \(self.wifi?.toJSONstring() ?? "no wifi")  }\n}".data(using: .utf8)
-        print(String(data: request.httpBody!, encoding: .utf8))
+        print(String(data: request.httpBody!, encoding: .utf8) as Any)
         
         Alamofire.request(request).responseJSON { dataResponse in
             guard dataResponse.error == nil else {
@@ -238,7 +261,7 @@ class OpenDoorViewController: UIViewController {
             
             let json = JSON(dataResponse.data ?? Data())
             print(dataResponse.response?.statusCode as Any)
-            print(dataResponse.response?.allHeaderFields)
+            print(dataResponse.response?.allHeaderFields as Any)
             let alert = UIAlertController(title: json.description, message: nil, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
@@ -250,7 +273,6 @@ class OpenDoorViewController: UIViewController {
         
         self.setBecons(from: json)
         self.setDevice()
-        self.setLocation()
         self.setOs()
         self.setServices()
         self.setWifi()
@@ -276,8 +298,12 @@ class OpenDoorViewController: UIViewController {
         self.device = Device(ip: ipAddress, mac: macAddress, manufacturer: "apple", model: model)
     }
     
-    func setLocation() {
-        self.location = Location(longitude: 80.246071, latitude: 12.985803)
+    func setLocation(currentLocation: CLLocation) {
+        
+        self.location = Location(longitude: currentLocation.coordinate.longitude, latitude: currentLocation.coordinate.latitude)
+        self.location?.altitude = Int(currentLocation.altitude)
+        self.location?.horizontal_accuracy = Int(currentLocation.horizontalAccuracy)
+        self.location?.vertical_accuracy = Int(currentLocation.verticalAccuracy)
     }
     
     func setOs() {
