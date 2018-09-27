@@ -192,8 +192,7 @@ class OpenDoorViewController: UIViewController {
 
     }
     @IBAction func openDoorButtonPressed(_ sender: UIButton) {
-        self.oldOpeningDoorFunction()
-        //self.openDoorFunction()
+        self.unlock()
         
     }
     
@@ -214,32 +213,8 @@ class OpenDoorViewController: UIViewController {
         
         self.setLocation(currentLocation: currentLocation)
     }
-    func openDoorFunction() {
-        
-        let url = URL(string: "https://api.getkisi.com/locks")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("KISI-LOGIN \(self.authenticationToken ?? "no token")", forHTTPHeaderField: "Authorization")
-        
-        request.httpBody = "{\n  \"lock\": {\n    \"name\": \"Server Room\",\n    \"unlock_channel\": 1,\n    \"unlock_duration\": 5.0,\n    \"unlock_commands_enabled\": false }\n}".data(using: .utf8)
-        
-        Alamofire.request(request).responseJSON { dataResponse in
-            guard dataResponse.error == nil else {
-                
-                let alert = UIAlertController(title: "error", message: "request returned with exit code \(dataResponse.response?.statusCode ?? 90909)", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
-                self.present(alert, animated: true)
-                return
-            }
-            
-            print(JSON(dataResponse.data!))
-        }
-        
-    }
     
-    func oldOpeningDoorFunction() {
+    func unlock() {
         
         let url = URL(string: "https://api.getkisi.com/locks/8322/unlock")!
         var request = URLRequest(url: url)

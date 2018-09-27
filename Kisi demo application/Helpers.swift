@@ -9,7 +9,7 @@
 import Foundation
 import SystemConfiguration.CaptiveNetwork
 
-// Return IP address of WiFi interface (en0) as a String, or `nil`
+// MARK:-  Return IP address of WiFi interface (en0) as a String, or `nil`
 func getWiFiAddress() -> String? {
     var address : String?
     
@@ -44,7 +44,7 @@ func getWiFiAddress() -> String? {
     return address
 }
 
-// to get the current wifi ssid
+// MARK:- To get the wifi ssid and the bssid
 func getWiFiInfo() -> (ssid: String?, bssid: String?) {
     var ssid: String?
     var bssid: String?

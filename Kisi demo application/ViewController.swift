@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import CoreLocation
+import MBProgressHUD
 
 let LOGIN_ENDPOINT = "https://api.getkisi.com/users/sign_in"
 let locationManager = CLLocationManager()
@@ -33,6 +34,8 @@ class ViewController: UIViewController {
 
     @IBAction func loginButtonAction(_ sender: Any) {
         
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        
         let url = URL(string: LOGIN_ENDPOINT)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -44,6 +47,7 @@ class ViewController: UIViewController {
         Alamofire.request(request).responseJSON { (responseData) in
             
             guard responseData.error == nil else {
+                MBProgressHUD.hide(for: self.view, animated: true)
                 print("Login failed with errors. response code: ", responseData.response?.statusCode as Any)
                 print("error: ", responseData.error as Any)
                 let alert = UIAlertController(title: "error", message: "response returned a \(String(describing: responseData.response?.statusCode)) error", preferredStyle: .alert)
@@ -62,9 +66,8 @@ class ViewController: UIViewController {
             
             viewController.secret = secret
             viewController.authenticationToken = authenticationToken
-            
+            MBProgressHUD.hide(for: self.view, animated: true)
             self.present(viewController, animated: true)
-            
         }
     }
 }
