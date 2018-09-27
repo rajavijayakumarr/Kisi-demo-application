@@ -11,9 +11,6 @@ import Alamofire
 import SwiftyJSON
 import CoreLocation
 
-//can add parameters: name=name&online=true&assigned=true&gateway_id=0&place_id=5850
-let LOCK_INFORMATION_ENDPOINT = "https://api.getkisi.com/locks"
-
 struct Becons: Codable {
     var uuid: String
     var major: Int
@@ -138,12 +135,17 @@ struct App: Codable {
     }
 }
 
+struct LocksInformation {
+    var name: String
+    var id: String
+    var beacon: Becons
+}
+
 
 class OpenDoorViewController: UIViewController {
     
     // MARK:- Outlet Properties
-    @IBOutlet weak var openDoorButton: UIButton!
-    @IBOutlet weak var getLockInformtionButton: UIButton!
+    @IBOutlet weak var placesTableView: UITableView!
     
     // MARK:- Properties
     var currentLocation: CLLocation?
@@ -156,14 +158,17 @@ class OpenDoorViewController: UIViewController {
     var wifi: Wifi? = nil
     var app: App? = nil
     var lockId = ""
+    
+    var locks: [LocksInformation] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.assignLocation()
-        self.openDoorButton.isEnabled = false
-        
+        self.loadLocks()
+        self.placesTableView.delegate = self
+        self.placesTableView.dataSource = self
     }
-    @IBAction func getLockInformatoinButtonPressed(_ sender: UIButton) {
+    func loadLocks() {
         
         kisiApiService.retriveLockInformation { json, httpResponse, error in
             guard error == nil else {
@@ -176,14 +181,10 @@ class OpenDoorViewController: UIViewController {
             guard let json = json else { return }
             
             print(json as Any)
-            self.setAllNecessaryParameters(from: json.arrayValue[0])
-            self.openDoorButton.isEnabled = true
+            self.setAllNecessaryParameters(from: json)
 
         }
-    }
-    @IBAction func openDoorButtonPressed(_ sender: UIButton) {
-        self.unlock()
-        
+        self.placesTableView.reloadData()
     }
     
     // MARK:- Helper functions
@@ -204,9 +205,9 @@ class OpenDoorViewController: UIViewController {
         self.setLocation(currentLocation: currentLocation)
     }
     
-    func unlock() {
+    func unlock(lockId: String, becon: Becons) {
         
-        kisiApiService.unlockDoor(app: self.app, becons: self.becons, device: self.device, location: self.location, os: self.os, services: self.services, wifi: self.wifi, lockId: self.lockId) { json, httpResponse, error in
+        kisiApiService.unlockDoor(app: self.app, becons: becon, device: self.device, location: self.location, os: self.os, services: self.services, wifi: self.wifi, lockId: lockId) { json, httpResponse, error in
             
             guard error == nil else {
                 let alert = UIAlertController(title: "error", message: "request returned with exit code \(httpResponse?.statusCode ?? 90909)", preferredStyle: .alert)
@@ -222,10 +223,12 @@ class OpenDoorViewController: UIViewController {
         }
     }
     
-    func setAllNecessaryParameters(from json: JSON) {
+    func setAllNecessaryParameters(from jsons: JSON) {
         
-        self.lockId = String(json["id"].intValue)
-        self.setBecons(from: json)
+        for json in jsons.arrayValue {
+            locks.append(LocksInformation(name: json["name"].stringValue, id: String(json["id"].intValue), beacon: self.setBecons(from: json)))
+        }
+        
         self.setDevice()
         self.setOs()
         self.setServices()
@@ -233,7 +236,7 @@ class OpenDoorViewController: UIViewController {
         self.setApp()
     }
     
-    func setBecons(from json: JSON) {
+    func setBecons(from json: JSON) -> Becons {
         
         let becons = json["beacons"].arrayValue
         for becon in becons {
@@ -241,6 +244,7 @@ class OpenDoorViewController: UIViewController {
                 self.becons = Becons(uuid: becon["uuid"].stringValue, major: becon["major"].intValue, minor: becon["minor"].intValue)
             }
         }
+        return self.becons!
     }
     
     func setDevice() {
@@ -260,6 +264,9 @@ class OpenDoorViewController: UIViewController {
         self.location?.vertical_accuracy = Int(currentLocation.verticalAccuracy)
     }
     
+    @IBAction func buttonPressed(_ sender: Any) {
+        self.placesTableView.reloadData()
+    }
     func setOs() {
         self.os = OS(version: UIDevice.current.systemVersion)
     }

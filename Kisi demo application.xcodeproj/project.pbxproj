@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		04D42B31CF8C6E46C869D063 /* Pods_Kisi_demo_applicationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86C7AF362793B5D5B4226DAD /* Pods_Kisi_demo_applicationTests.framework */; };
 		352B71AD215CD29B00546620 /* KisiAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352B71AC215CD29B00546620 /* KisiAPI.swift */; };
+		352B71AF215D197400546620 /* OpenDoorViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352B71AE215D197400546620 /* OpenDoorViewController+TableView.swift */; };
 		35F1D128215BA88E00A5D8F5 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F1D127215BA88E00A5D8F5 /* Helpers.swift */; };
 		35F97DC4215B8DB500EA608D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F97DC3215B8DB500EA608D /* AppDelegate.swift */; };
 		35F97DC6215B8DB500EA608D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F97DC5215B8DB500EA608D /* ViewController.swift */; };
@@ -42,6 +43,7 @@
 /* Begin PBXFileReference section */
 		162D069DFAD8C9B8D14211C2 /* Pods-Kisi demo applicationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kisi demo applicationTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Kisi demo applicationTests/Pods-Kisi demo applicationTests.debug.xcconfig"; sourceTree = "<group>"; };
 		352B71AC215CD29B00546620 /* KisiAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KisiAPI.swift; sourceTree = "<group>"; };
+		352B71AE215D197400546620 /* OpenDoorViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OpenDoorViewController+TableView.swift"; sourceTree = "<group>"; };
 		35F1D127215BA88E00A5D8F5 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		35F97DC0215B8DB500EA608D /* Kisi demo application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Kisi demo application.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		35F97DC3215B8DB500EA608D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 				35F97DF1215B8EA800EA608D /* OpenDoorViewController.swift */,
 				35F1D127215BA88E00A5D8F5 /* Helpers.swift */,
 				352B71AC215CD29B00546620 /* KisiAPI.swift */,
+				352B71AE215D197400546620 /* OpenDoorViewController+TableView.swift */,
 			);
 			path = "Kisi demo application";
 			sourceTree = "<group>";
@@ -388,6 +391,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				352B71AF215D197400546620 /* OpenDoorViewController+TableView.swift in Sources */,
 				35F97DF2215B8EA800EA608D /* OpenDoorViewController.swift in Sources */,
 				35F97DC6215B8DB500EA608D /* ViewController.swift in Sources */,
 				35F97DC4215B8DB500EA608D /* AppDelegate.swift in Sources */,

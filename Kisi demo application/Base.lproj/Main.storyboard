@@ -69,39 +69,56 @@
         <!--Open Door View Controller-->
         <scene sceneID="UeT-RA-BcV">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fWX-J0-VfB" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="opendoorviewcontroller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hF5-4H-Q61" customClass="OpenDoorViewController" customModule="Kisi_demo_application" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Q8h-zd-gBz">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sw8-wo-8Ho">
-                                <rect key="frame" x="163" y="151" width="88" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="OPEN DOOR"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NCt-Xm-hK4">
+                                <rect key="frame" x="0.0" y="287" width="414" height="449"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="449" id="30b-Bw-Nd0"/>
+                                </constraints>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="nameOfPlacesCell" id="zHx-Pn-JXc" customClass="LocksTableViewCell" customModule="Kisi_demo_application" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zHx-Pn-JXc" id="d4x-qr-f2U">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                                 <connections>
-                                    <action selector="openDoorButtonPressed:" destination="hF5-4H-Q61" eventType="touchUpInside" id="3Eq-1O-2Hh"/>
+                                    <outlet property="dataSource" destination="hF5-4H-Q61" id="62G-ha-XHM"/>
+                                    <outlet property="delegate" destination="hF5-4H-Q61" id="0ox-Kl-RVa"/>
                                 </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OW9-3A-J0b">
-                                <rect key="frame" x="119" y="250" width="177" height="30"/>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B5f-Dp-vRa">
+                                <rect key="frame" x="167" y="85" width="81" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="GET LOCK INFORMATION"/>
+                                <state key="normal" title="reload table"/>
                                 <connections>
-                                    <action selector="getLockInformatoinButtonPressed:" destination="hF5-4H-Q61" eventType="touchUpInside" id="RV3-R1-W6w"/>
+                                    <action selector="buttonPressed:" destination="hF5-4H-Q61" eventType="touchUpInside" id="AmF-Dv-US4"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="NCt-Xm-hK4" firstAttribute="trailing" secondItem="rkx-dM-3we" secondAttribute="trailing" id="Ido-1b-v7V"/>
+                            <constraint firstItem="NCt-Xm-hK4" firstAttribute="leading" secondItem="rkx-dM-3we" secondAttribute="leading" id="c1E-ru-p5u"/>
+                            <constraint firstItem="NCt-Xm-hK4" firstAttribute="bottom" secondItem="rkx-dM-3we" secondAttribute="bottom" id="su8-3R-8fD"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="rkx-dM-3we"/>
                     </view>
                     <connections>
-                        <outlet property="getLockInformtionButton" destination="OW9-3A-J0b" id="w5N-ph-CAJ"/>
-                        <outlet property="openDoorButton" destination="Sw8-wo-8Ho" id="E7b-3z-A74"/>
+                        <outlet property="placesTableView" destination="NCt-Xm-hK4" id="Eyi-Xc-0e9"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fWX-J0-VfB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="829" y="132"/>
+            <point key="canvasLocation" x="828.98550724637687" y="131.25"/>
         </scene>
     </scenes>
 </document>
