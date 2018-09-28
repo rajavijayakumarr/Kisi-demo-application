@@ -1,0 +1,23 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'Kisi demo application' do
+  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for Kisi demo application
+  pod 'Alamofire'
+  pod 'SwiftyJSON'
+  pod 'MBProgressHUD', '~> 1.1'
+
+  target 'Kisi demo applicationTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'Kisi demo applicationUITests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
