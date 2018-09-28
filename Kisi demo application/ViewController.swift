@@ -12,13 +12,13 @@ import SwiftyJSON
 import CoreLocation
 import MBProgressHUD
 
-let locationManager = CLLocationManager()
 let kisiApiService = KisiApiService()
 
 class ViewController: UIViewController {
 
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    public let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,8 +28,7 @@ class ViewController: UIViewController {
     }
     
     func requestForLocation() {
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.requestAlwaysAuthorization()
+        self.locationManager.requestAlwaysAuthorization()
     }
 
     @IBAction func loginButtonAction(_ sender: Any) {

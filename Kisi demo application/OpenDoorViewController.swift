@@ -16,9 +16,12 @@ class OpenDoorViewController: UIViewController {
     
     // MARK:- Outlet Properties
     @IBOutlet weak var placesTableView: UITableView!
+    @IBOutlet weak var scanForLocksButton: UIButton!
+    @IBOutlet weak var distanceInformationOfLock: UILabel!
     
     // MARK:- Properties
     var currentLocation: CLLocation?
+    let locationManager: CLLocationManager = CLLocationManager()
     
     var becons: Becons? = nil
     var device: Device? = nil
@@ -29,10 +32,13 @@ class OpenDoorViewController: UIViewController {
     var app: App? = nil
     
     var locks: [LocksInformation] = []
+    
+    var locationAccessEnabled = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.assignLocation()
+        self.locationManagerSetup()
         self.loadLocks()
         self.placesTableView.delegate = self
         self.placesTableView.dataSource = self
@@ -59,6 +65,11 @@ class OpenDoorViewController: UIViewController {
     }
     
     // MARK:- Helper functions
+    func locationManagerSetup() {
+        self.locationManager.delegate = self
+        self.locationManager.requestAlwaysAuthorization()
+    }
+    
     func signOutFunction() {
         
         kisiApiService.signOut() { json , httpResponse, error in
