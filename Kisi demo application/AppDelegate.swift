@@ -16,6 +16,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        guard UserDefaults.standard.value(forKey: AUTHORIZATION_TOKEN) != nil else {
+            return true
+        }
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let openDoorVC = storyboard.instantiateViewController(withIdentifier: "opendoorviewcontroller") as! OpenDoorViewController
+        self.window?.rootViewController = openDoorVC
+        self.window?.makeKeyAndVisible()
+        
         return true
     }
 

@@ -79,7 +79,10 @@ class OpenDoorViewController: UIViewController {
             }
             if httpResponse?.statusCode == 204 {
                 showAlert(titleMessage: "Logged Out Successfully", message: nil, viewController: self) { _ in
-                    self.dismiss(animated: true, completion: nil)
+                    UserDefaults.standard.setValue(nil, forKey: AUTHORIZATION_TOKEN)
+                    let viewController = self.storyboard?.instantiateViewController(withIdentifier: "mainViewController") as! ViewController
+                    self.present(viewController, animated: true, completion: nil)
+                    self.removeFromParent()
                 }
             } else {
                 showAlert(titleMessage: "something went wrong", message: "try again", viewController: self)
