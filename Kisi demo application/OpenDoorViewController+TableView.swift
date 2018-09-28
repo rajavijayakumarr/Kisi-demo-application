@@ -33,8 +33,11 @@ extension OpenDoorViewController: UITableViewDelegate, UITableViewDataSource {
         let alert = UIAlertController(title: "confirmation", message: "do you want to unlock this door", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { _ in
             self.unlock(lockId: cell.locks?.id ?? "", becon: cell.locks?.beacon ?? Becons(uuid: "", major: 0, minor: 0))
+            tableView.deselectRow(at: indexPath, animated: true)
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
+            tableView.deselectRow(at: indexPath, animated: true)
+        }))
         self.present(alert, animated: true)
     }
     

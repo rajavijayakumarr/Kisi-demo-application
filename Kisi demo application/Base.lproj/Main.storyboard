@@ -38,7 +38,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="mifour4990" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qS6-YZ-Wcm">
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="password" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qS6-YZ-Wcm">
                                 <rect key="frame" x="116" y="153" width="278" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
@@ -96,12 +96,12 @@
                                     <outlet property="delegate" destination="hF5-4H-Q61" id="0ox-Kl-RVa"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B5f-Dp-vRa">
-                                <rect key="frame" x="167" y="85" width="81" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hDM-YA-Vux">
+                                <rect key="frame" x="183" y="141" width="48" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="reload table"/>
+                                <state key="normal" title="Logout"/>
                                 <connections>
-                                    <action selector="buttonPressed:" destination="hF5-4H-Q61" eventType="touchUpInside" id="AmF-Dv-US4"/>
+                                    <action selector="logoutButtonPressed:" destination="hF5-4H-Q61" eventType="touchUpInside" id="47R-b7-Ofx"/>
                                 </connections>
                             </button>
                         </subviews>

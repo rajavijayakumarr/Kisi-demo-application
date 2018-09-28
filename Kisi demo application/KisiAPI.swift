@@ -71,8 +71,12 @@ enum KisiURLRequest: ApiUrlRequest {
     // POST https://api.getkisi.com/users/sign_out no parameters requrired as per the documentation
     case signOut()
     
+    // GET https://api.getkisi.com/places?name=FULL%20CREATIVE%20%5BCHENNAI%5D&user_id=0&transfer_to_id=0 parameters are optional
+    // use this to get all the places that the user has access to and then using this place id fetch the lock information
+    case getPlaceInformation(name: String?, user_id: Int?, transfer_to_id: Int?)
+    
     // GET https://api.getkisi.com/locks?name=name&online=true&assigned=true&gateway_id=0&place_id=5850 returns all the locks available can be filtered by the above parameters
-    case getLockInformation(name: String?, online: String?, assigned: String?, gateway_id: String?, place_id: String?)
+    case getLockInformation(name: String?, online: Bool?, assigned: Bool?, gateway_id: Int?, place_id: Int?)
     
     // POST https://api.getkisi.com/locks/(lock_id)/unlock
     case unlock(app: App?, becons: Becons?, device: Device?, location: Location?, os: OS?, services: Services?, wifi: Wifi?, lockId: String)
@@ -95,11 +99,28 @@ enum KisiURLRequest: ApiUrlRequest {
             case .signOut:
                 
                 return (.post, nil, nil, "/users/sign_out", JSONEncoding.default)
+            
+            case .getPlaceInformation(let name, let user_id, let transfer_to_id):
+                
+                let name_value = name != nil ? name! : ""
+                let user_id_Value = user_id != nil ? String(user_id!) : ""
+                let transfer_to_id_value = transfer_to_id != nil ? String(transfer_to_id!) : ""
+                
+                let queryParams: [String: Any] = ["name": name_value, "user_id": user_id_Value, "transfer_to_id": transfer_to_id_value]
+                
+                return (.get, queryParams, nil, "/places", JSONEncoding.default)
                 
             case .getLockInformation(let name, let online, let assigned, let gateway_id, let place_id):
                 
-                //return (.get, nil, nil, "/locks?name=\(name ?? "")&online=\(online ?? "")&assigned=\(assigned ?? "")&gateway_id=\(gateway_id ?? "")&place_id=\(place_id ?? "")", JSONEncoding.default)
-                return (.get, nil, nil, "/locks", JSONEncoding.default)
+                let nameValue = name != nil ? name! : ""
+                let onlineValue = online != nil ? String(online!) : ""
+                let assignedValue = assigned != nil ? String(assigned!) : ""
+                let gateway_id_Value = gateway_id != nil ? String(gateway_id!) : ""
+                let place_id_Value = place_id != nil ? String(place_id!) : ""
+                
+                let quertParams: [String: Any] = ["name": nameValue, "online": onlineValue, "assigned": assignedValue, "gateway_id": gateway_id_Value, "place_id": place_id_Value]
+                
+                return (.get, quertParams, nil, "/locks", JSONEncoding.default)
                 
             case .unlock(_, _, _, _, _, _, _, let lockId):
                 
@@ -151,6 +172,10 @@ enum KisiURLRequest: ApiUrlRequest {
                 
                 return addAuthorization(request: request, isAuthorizationToken: true)
                 
+            case .getPlaceInformation:
+                
+                return addAuthorization(request: request, isAuthorizationToken: true)
+                
             case .getLockInformation:
                 
                 return addAuthorization(request: request, isAuthorizationToken: true)
@@ -163,7 +188,7 @@ enum KisiURLRequest: ApiUrlRequest {
                 return request
             }
         }()
-
+        
         return finalRequest
     }
 }
@@ -194,7 +219,18 @@ class KisiApiService {
         }
     }
     
-    func retriveLockInformation(name: String? = nil, online: String? = nil, assigned: String? = nil, gateway_id: String? = nil, place_id: String? = nil, completion: ApiResponseHandler?) {
+    func getPlaceInformation(name: String? = nil, user_id: Int? = nil, transfer_to_id: Int? = nil, completion: ApiResponseHandler?) {
+        
+        _ = makeApiRequest(urlRequest: KisiURLRequest.getPlaceInformation(name: name, user_id: user_id, transfer_to_id: transfer_to_id)) { (responseJSON, response, error) in
+            guard error == nil else {
+                completion?(nil, nil, error)
+                return
+            }
+            completion?(responseJSON, response, nil)
+        }
+    }
+    
+    func retriveLockInformation(name: String? = nil, online: Bool? = nil, assigned: Bool? = nil, gateway_id: Int? = nil, place_id: Int? = nil, completion: ApiResponseHandler?) {
         
         _ = makeApiRequest(urlRequest: KisiURLRequest.getLockInformation(name: name, online: online, assigned: assigned, gateway_id: gateway_id, place_id: place_id)) { (responseJSON, response, error) in
             
@@ -215,6 +251,17 @@ class KisiApiService {
                 return
             }
             completion?(responseJSON, response, nil)
+        }
+    }
+    
+    func signOut(completions: ApiResponseHandler?) {
+        _ = makeApiRequest(urlRequest: KisiURLRequest.signOut()) { (responseJSON, response, error) in
+            
+            guard error == nil else {
+                completions?(nil, nil, error)
+                return
+            }
+            completions?(responseJSON, response, nil)
         }
     }
 }
