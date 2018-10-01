@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import UserNotifications
 
 extension OpenDoorViewController: CLLocationManagerDelegate {
     
@@ -38,8 +39,9 @@ extension OpenDoorViewController: CLLocationManagerDelegate {
             let identifier = lock.beacon.uuid
             
             let region = CLBeaconRegion(proximityUUID: UUID(uuidString: uuid)!, major: majorValue, minor: minorValue, identifier: identifier)
-            
-            locationManager.startRangingBeacons(in: region)
+            region.notifyOnEntry = true
+            region.notifyOnExit = true
+            self.locationManager.startRangingBeacons(in: region)
         }
         
     }
@@ -83,9 +85,11 @@ extension OpenDoorViewController: CLLocationManagerDelegate {
             case .unknown:
                 self.distanceInformationOfLock.text = "distance unknown"
                 print("unknown")
+                self.showNotification(title: "unknown")
             case .far:
                 self.distanceInformationOfLock.text = "distance far"
                 print("far")
+                self.showNotification(title: "far")
             case .near:
                 self.distanceInformationOfLock.text = "distance near"
                 self.unlockForBeacon(for: becon.proximityUUID.uuidString)
@@ -93,6 +97,34 @@ extension OpenDoorViewController: CLLocationManagerDelegate {
             case .immediate:
                 self.distanceInformationOfLock.text = "distance immediate"
                 print("immediate")
+            }
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        //showAlert(titleMessage: "user entered beacon region", message: "user entered!", viewController: self)
+        self.showNotification(title: "just have entered beacon region")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+        //showAlert(titleMessage: "user exited becon region", message: "user exited", viewController: self)
+    }
+    
+    func showNotification(title: String) {
+        
+        let notificationContent = UNMutableNotificationContent()
+        
+        notificationContent.title = title
+        notificationContent.subtitle = "user in becon region"
+        notificationContent.body = "user in becon region"
+        
+        let notificationTrigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.2, repeats: false)
+        
+        let notificationRequest = UNNotificationRequest(identifier: "com.fullCreative.Kisi-demo-application", content: notificationContent, trigger: notificationTrigger)
+        
+        UNUserNotificationCenter.current().add(notificationRequest) { error in
+            if error != nil {
+                print("notification request failed to post")
             }
         }
     }

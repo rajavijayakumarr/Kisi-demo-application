@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -50,7 +51,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+    // MARK:- Helper methods
 
+    func registerForNotifications() {
+        
+        // Request Notification Settings
+        UNUserNotificationCenter.current().getNotificationSettings { (notificationSettings) in
+            switch notificationSettings.authorizationStatus {
+            case .notDetermined:
+            // Request Authorization
+                self.requestAuthorization(completionHandler: { (success) in
+                    guard success else { return }
+                    
+                    // Schedule Local Notification
+                })
+            case .authorized:
+            // Schedule Local Notification
+                print("successfully authorized")
+            case .denied:
+                print("application not allowed to show notification")
+            case .provisional:
+                break
+            }
+        }
+    }
+    
+    func requestAuthorization(completionHandler: @escaping (_ success: Bool) -> ()) {
+        // Request Authorization
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (success, error) in
+            if let error = error {
+                print("Request Authorization Failed (\(error), \(error.localizedDescription))")
+            }
+            completionHandler(success)
+        }
+    }
 
 }
 
