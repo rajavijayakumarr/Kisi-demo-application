@@ -11,6 +11,7 @@ import Alamofire
 import SwiftyJSON
 import CoreLocation
 import MBProgressHUD
+import UserNotifications
 
 class OpenDoorViewController: UIViewController {
     
@@ -37,6 +38,7 @@ class OpenDoorViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+ //       UNUserNotificationCenter.current().delegate = self
         self.assignLocation()
         self.locationManagerSetup()
         self.loadLocks()
@@ -106,6 +108,8 @@ class OpenDoorViewController: UIViewController {
         }
         
         self.setLocation(currentLocation: currentLocation)
+        //self.location = Location(longitude: 80.246071000000001, latitude: 12.985803000000001)
+
     }
     
     func unlock(lockId: String, becon: Becons) {
@@ -154,8 +158,8 @@ class OpenDoorViewController: UIViewController {
     func setDevice() {
         
         let ipAddress = getWiFiAddress() ?? "no ip address"
-        //let macAddress = UIDevice.current.identifierForVendor?.uuidString ?? "no macaddress"
-        let macAddress = "48:4B:AA:20:0E:D7"
+        let macAddress = UIDevice.current.identifierForVendor?.uuidString ?? "no macaddress"
+        //let macAddress = "48:4B:AA:20:0E:D7"
         let model = UIDevice.current.model
         self.device = Device(ip: ipAddress, mac: macAddress, manufacturer: "apple", model: model)
     }

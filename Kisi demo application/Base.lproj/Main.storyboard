@@ -108,7 +108,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Scan for Locks"/>
                                 <connections>
-                                    <action selector="scanForLocksButtonPressed:" destination="hF5-4H-Q61" eventType="touchUpInside" id="23f-HL-UCb"/>
+                                    <action selector="scanForLocksButtonPressed:" destination="hF5-4H-Q61" eventType="touchUpInside" id="Nyv-S0-9VE"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="distance of the lock" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dKu-xt-Elm">
